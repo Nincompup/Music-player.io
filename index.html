@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="conatiner " id="maindiv">
+        <div class="conatiner-fluid " id="musiccont">
+            <h2 id="title">Agar tum saath ho</h2>
+            <h3 id="artist">Unknown</h3>
+            <div class="imgcont">
+                <img src="images/s1.jfif" alt="">
+
+
+                <!-- -------progress bar  -->
+                <div class="progressbar_cont conatiner">
+                    <div class="progress_duration_meter">
+                        <div id="curr_time">0:00</div>
+                        <div id="dura">2:44</div>
+                    </div>
+                    <div class="progress_div" id="progress_div">
+                        <div class="progress" id="progress"> </div>
+                    </div>
+                </div>
+
+                <!-- progress bar ends -->
+
+                <div style="display: flex;justify-content: space-around;margin-top:15%">
+                    <i class="fa-solid fa-backward" id="prev"></i>
+                    <i class="fa-solid fa-play" id="play"></i>
+                    <i class="fa-solid fa-forward" id="next"></i>
+                </div>
+                <audio src="Musics/s1.mp3"></audio>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        const music = document.querySelector("audio");
+        const play = document.getElementById("play");
+        const title = document.getElementById("title");
+        const artist = document.getElementById("artist");
+        const prev = document.getElementById("prev");
+        const next = document.getElementById("next");
+        const img = document.querySelector("img");
+        let curr_time = document.getElementById("curr_time");
+        let dura = document.getElementById("dura");
+        let progress = document.getElementById("progress");
+        let progress_div = document.getElementById("progress_div");
+
+        const songs = [
+            {
+                name: "s1",
+                title: "Agar Tum Saath Ho",
+                artist: "unknown"
+            },
+            {
+                name: "s2",
+                title: "Money-heist",
+                artist: "unknown"
+            },
+            {
+                name: "s3",
+                title: "GOT",
+                artist: "unknown"
+            },
+            {
+                name: "s4",
+                title: "Butta-bomma",
+                artist: "unknown"
+            }
+
+        ]
+
+
+        let isplaying = false;
+
+        const playmusic = () => {
+            music.play();
+            play.classList.replace("fa-play", "fa-pause");
+            img.classList.add("anime");
+            isplaying = true;
+        }
+
+        const pausemusic = () => {
+            music.pause();
+            play.classList.replace("fa-pause", "fa-play");
+            img.classList.remove("anime");
+            isplaying = false;
+        }
+
+        const loadsong = (songs) => {
+            music.src = "Musics/" + songs.name + ".mp3";
+            img.src = "images/" + songs.name + ".jfif";
+            title.textContent = songs.title;
+            artist.textContent = songs.artist;
+            playmusic();
+        }
+
+        play.addEventListener("click", () => {
+            if (isplaying)
+                pausemusic();
+            else {
+                playmusic();
+            }
+
+        });
+
+
+        // progress js 
+
+        music.addEventListener("timeupdate", (event) => {
+            const { currentTime, duration } = event.srcElement;
+            let progress_time = (currentTime / duration) * 100;
+            progress.style.width = `${progress_time}%`;
+            let dufloor = Math.floor(duration);
+            let mindu = Math.floor(dufloor / 60);
+
+            let secdu = dufloor % 60;
+            // dura.textContent=`${mindu}:${secdu}`;
+            let currfloor = Math.floor(currentTime);
+            let mincu = Math.floor(currfloor / 60);
+            let seccu = currfloor % 60;
+            curr_time.textContent = `${mincu}:${seccu}`;
+            if (duration) {
+                dura.textContent = `${mindu}:${secdu}`;
+            }
+        });
+
+
+        currsong = 0;
+
+
+
+        const nextsongs = () => {
+            currsong = (currsong + 1) % 4;
+            loadsong(songs[currsong]);
+        }
+        const prevsongs = () => {
+            currsong = ((currsong - 1) + 4) % 4;
+            loadsong(songs[currsong]);
+        }
+
+
+        // progress onclick functionality
+
+        progress_div.addEventListener("click", (event) => {
+            console.log(event);
+            const { duration } = music;
+            let move_progress = (event.offsetX / event.srcElement.clientWidth) * duration;
+            music.currentTime = move_progress;
+        })
+
+        music.addEventListener("ended", nextsongs);
+        next.addEventListener("click", nextsongs);
+        prev.addEventListener("click", prevsongs);
+
+
+    </script>
+</body>
+
+</html>

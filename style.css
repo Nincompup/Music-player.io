@@ -1,0 +1,118 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    background-color: rgb(234, 229, 224);
+}
+
+#maindiv{
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#musiccont{
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 450px;
+    height: 90vh;
+    border-radius: 20px;
+    /* border: 2px solid red; */
+    /* box-shadow: 0px 0px 10px black; */
+}
+
+#title{
+    margin-top: 20px;
+    letter-spacing: 0.17rem;
+    word-spacing: 0.3rem;
+    font-size: 2.0rem;
+    font-weight: 300;
+    text-shadow: 2px 0px 3px rgb(197, 171, 171);
+}
+#artist{
+    color: rgb(144, 125, 125);
+    font-size: 1.5rem;
+}
+
+.imgcont{
+    margin-top: 10%;
+    width: 100%;
+    height: 25rem;
+    /* margin: auto; */
+} 
+
+img{
+    display: block;
+    margin: auto;
+    height: 40%;
+    width: 50%;
+    border-radius: 50%;
+}
+
+.fa-solid{
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+.anime{
+    animation: rotateplayer 3s linear infinite;
+}
+
+@keyframes rotateplayer{
+  from{transform: rotate(0deg);}
+  to{transform: rotate(360deg);}
+}
+
+.progressbar_cont{
+    width: 100%;
+    height: auto;
+    padding: 1rem 0 0 0;
+    margin-top: 3rem;
+}
+
+.progress_div{
+    width: 90%;
+    height: 0.5rem;
+    display: block;
+    margin: auto;
+    box-shadow: 0 1px 2px black;
+    border-radius: 4rem;
+    position: relative;
+    /* transition: all 1s linear;
+    -moz-transition: all 1s linear;
+    -o-transition: all 1s linear;
+    -webkit-transition: all 1s linear; */
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.progress{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background-color: black;
+    border-radius: 4rem;
+    /* position: relative; */
+    /* transition: all 1s linear;
+    -moz-transition: all 1s linear;
+    -o-transition: all 1s linear;
+    -webkit-transition: all 1s linear; */
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+
+}
+
+.progress_duration_meter{
+    margin-left: 20px;
+    margin-right: 20px;
+    display: flex;
+    justify-content: space-between;
+}
